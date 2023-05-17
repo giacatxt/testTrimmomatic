@@ -1,0 +1,16 @@
+# render.yaml
+buildCommand:
+  - name: Install Dependencies
+    command: |
+      conda config --add channels defaults
+      conda config --add channels bioconda
+      conda config --add channels conda-forge
+      conda config --set channel_priority strict
+      conda create -y -n myenv 
+      conda activate myenv
+      conda install -c bioconda trimmomatic -y
+      pip install streamlit
+      conda install -y snakemake 
+  - name: Build
+    command: |
+      streamlit run app.py
