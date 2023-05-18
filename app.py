@@ -13,9 +13,6 @@ if fastq_file is not None:
     # Run Snakemake command to trim the reads
     subprocess.run(["snakemake", "--cores", "1"])
 
-    # Display trimmed FASTQ file
-    with open("output/trimmed.fastq", "r") as f:
-        trimmed_content = f.read()
-
-    st.subheader("Trimmed FASTQ file")
-    st.text(trimmed_content)
+    # Check if the trimmed FASTQ file exists
+    if st.button("Download Trimmed FASTQ"):
+        st.download_button(label="Download", data="output/trimmed.fastq", file_name="trimmed.fastq")
