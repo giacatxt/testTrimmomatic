@@ -3,7 +3,7 @@
 # Install required packages
 apt-get update
 apt-get install -y python3-dev python3-pip
-
+apt install -y default-jre
 # Download Trimmoatic
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip
 unzip Trimmomatic-0.39.zip
