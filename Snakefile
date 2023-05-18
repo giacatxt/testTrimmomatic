@@ -1,11 +1,7 @@
-rule all:
-    input:
-        "output/trimmed.fastq"
-
 rule trim_reads:
     input:
-        "input.fastq"
+        fastq="input.fastq"
     output:
-        "output/trimmed.fastq"
+        trimmed="output.fastq"
     shell:
-        "java -jar Trimmomatic-0.39/trimmomatic-0.39.jar SE -phred33 {input} {output} LEADING:3 TRAILING:3"
+        "docker run -v {input.fastq}:/data/input.fastq -v {output.trimmed}:/data/output.fastq trimmomatic PE /data/input.fastq /data/output.fastq"
