@@ -21,5 +21,11 @@ ENV PATH $TRIMMOMATIC_HOME:$PATH
 # Install Snakemake and Streamlit
 RUN pip3 install snakemake streamlit
 
+# Copy the Streamlit app
+COPY app.py /
+
 # Set the entrypoint
 ENTRYPOINT ["trimmomatic"]
+
+# Run the Streamlit app
+CMD ["streamlit", "run", "app.py"]
