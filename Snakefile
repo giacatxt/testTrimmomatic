@@ -1,11 +1,11 @@
 rule all:
     input:
-        "output/trimmed_{sample}.fastq"
+        "output/trimmed.fastq"
 
-rule trimmomatic:
+rule trim_reads:
     input:
-        "input/{sample}.fastq"
+        "input.fastq"
     output:
-        "output/trimmed_{sample}.fastq"
+        "output/trimmed.fastq"
     shell:
-        "trimmomatic SE -phred33 {input} {output} ILLUMINACLIP:adapters.fa:2:30:10"
+        "java -jar Trimmomatic-0.39/trimmomatic-0.39.jar SE -phred33 {input} {output} LEADING:3 TRAILING:3"

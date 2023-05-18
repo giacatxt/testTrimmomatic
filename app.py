@@ -1,25 +1,21 @@
 import streamlit as st
 import subprocess
 
-def run_trimmomatic(input_file):
-    output_file = f"output/trimmed_{input_file.name}"
-    cmd = f"trimmomatic SE -phred33 {input_file.name} {output_file} ILLUMINACLIP:adapters.fa:2:30:10"
-    subprocess.run(cmd, shell=True)
+# Upload FASTQ file
+fastq_file = st.file_uploader("Upload FASTQ file")
 
-def main():
-    st.title("Trimmomatic Workflow")
-    st.write("Upload a FASTQ file to perform trimming using Trimmomatic.")
+# Check if a file was uploaded
+if fastq_file is not None:
+    # Save uploaded file
+    with open("input.fastq", "wb") as f:
+        f.write(fastq_file.read())
 
-    uploaded_file = st.file_uploader("Upload a FASTQ file", type="fastq")
+    # Run Snakemake command to trim the reads
+    subprocess.run(["snakemake", "--cores", "1"])
 
-    if uploaded_file is not None:
-        st.write("File uploaded successfully.")
-        st.write(f"File name: {uploaded_file.name}")
+    # Display trimmed FASTQ file
+    with open("output/trimmed.fastq", "r") as f:
+        trimmed_content = f.read()
 
-        if st.button("Run Trimmomatic"):
-            st.write("Running Trimmomatic...")
-            run_trimmomatic(uploaded_file)
-            st.write("Trimmomatic completed.")
-
-if __name__ == "__main__":
-    main()
+    st.subheader("Trimmed FASTQ file")
+    st.text(trimmed_content)

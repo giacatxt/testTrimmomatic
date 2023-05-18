@@ -13,3 +13,4 @@ chmod +x Trimmomatic-0.39/trimmomatic-0.39.jar
 # Install Streamlit
 pip3 install streamlit
 
+pip3 install snakemake
