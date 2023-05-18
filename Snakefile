@@ -8,4 +8,4 @@ rule trim_reads:
     output:
         "output/trimmed.fastq"
     shell:
-        "java -jar Trimmomatic-0.39/trimmomatic-0.39.jar SE -phred33 {input} {output} LEADING:3 TRAILING:3"
+        "mkdir -p output && java -jar Trimmomatic-0.39/trimmomatic-0.39.jar SE -phred33 {input} {output} LEADING:3 TRAILING:3"
